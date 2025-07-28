@@ -32,3 +32,12 @@ if os.path.exists(deploy_path):
 # Save to GitHub Actions workflow path
 with open(".github/workflows/generated.yml", "w") as f:
     yaml.dump(pipeline, f, default_flow_style=False)
+
+import glob
+
+for file in glob.glob("templates/**/*.yml", recursive=True) + \
+            glob.glob("stages/*.yml") + \
+            glob.glob("deploy/*.yml"):
+    with open(file) as f:
+        if "@v3" in f.read():
+            print(f"⚠️ WARNING: Deprecated @v3 found in {file}")
