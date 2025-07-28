@@ -31,7 +31,7 @@ jobs:
           echo "pipeline-created=true" >> $GITHUB_OUTPUT
 
       - name: Upload generated workflow
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dynamic-workflow
           path: .github/workflows/generated.yml
