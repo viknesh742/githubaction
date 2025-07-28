@@ -1,18 +1,14 @@
-project_name: my-cpp-service
-language: cpp
-build_tool: make
-deployment: terraform
-environment: dev
+language: python
+build_tool: pip
+deployment: docker
+stages:
+  - lint
+  - test
+  - deploy
 branching:
-  type: env-based  # or semantic-versioning
   rules:
     - dev
     - staging
     - main
-
-stages:
-  - lint
-  - static_analysis
-  - unit_test
-  - build
-  - deploy
+  tags:
+    - v*.*.*

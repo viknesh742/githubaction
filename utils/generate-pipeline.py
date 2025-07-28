@@ -1,15 +1,27 @@
 import yaml
 import os
 
+# Load blueprint config
 with open("blueprint.yml") as f:
     config = yaml.safe_load(f)
 
-pipeline["on"] = {
-    "push": {
-        "branches": config.get("branching", {}).get("rules", ["main"])
+# ✅ Define pipeline first
+pipeline = {
+    "name": "Generated Pipeline",
+    "on": {
+        "workflow_dispatch": {}
     },
-    "workflow_dispatch": {}
+    "jobs": {}
 }
+
+# ✅ Add branching/tag strategy if defined
+if "branching" in config:
+    pipeline["on"]["push"] = {
+        "branches": config["branching"].get("rules", ["main"])
+    }
+
+    if "tags" in config["branching"]:
+        pipeline["on"]["push"]["tags"] = config["branching"]["tags"]
 
 # Add language + build job
 language_template = f"templates/{config['language']}/{config['build_tool']}.yml"
@@ -30,15 +42,6 @@ if os.path.exists(deploy_path):
     with open(deploy_path) as f:
         pipeline["jobs"].update(yaml.safe_load(f))
 
-# Save to GitHub Actions workflow path
+# Save the generated workflow
 with open(".github/workflows/generated.yml", "w") as f:
     yaml.dump(pipeline, f, default_flow_style=False)
-
-import glob
-
-for file in glob.glob("templates/**/*.yml", recursive=True) + \
-            glob.glob("stages/*.yml") + \
-            glob.glob("deploy/*.yml"):
-    with open(file) as f:
-        if "@v3" in f.read():
-            print(f"⚠️ WARNING: Deprecated @v3 found in {file}")
