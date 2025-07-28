@@ -4,10 +4,11 @@ import os
 with open("blueprint.yml") as f:
     config = yaml.safe_load(f)
 
-pipeline = {
-    "name": "Generated Pipeline",
-    "on": {"workflow_dispatch": {}},
-    "jobs": {}
+pipeline["on"] = {
+    "push": {
+        "branches": config.get("branching", {}).get("rules", ["main"])
+    },
+    "workflow_dispatch": {}
 }
 
 # Add language + build job

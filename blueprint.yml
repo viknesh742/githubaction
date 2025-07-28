@@ -3,7 +3,13 @@ language: cpp
 build_tool: make
 deployment: terraform
 environment: dev
-branching_strategy: semver
+branching:
+  type: env-based  # or semantic-versioning
+  rules:
+    - dev
+    - staging
+    - main
+
 stages:
   - lint
   - static_analysis
