@@ -1,0 +1,4 @@
+static_analysis:
+  runs-on: ubuntu-latest
+  steps:
+    - run: echo Running static analysis

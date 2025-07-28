@@ -1,0 +1,4 @@
+unit_test:
+  runs-on: ubuntu-latest
+  steps:
+    - run: echo Running unit tests

@@ -1,0 +1,12 @@
+project_name: my-cpp-service
+language: cpp
+build_tool: make
+deployment: terraform
+environment: dev
+branching_strategy: semver
+stages:
+  - lint
+  - static_analysis
+  - unit_test
+  - build
+  - deploy

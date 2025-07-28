@@ -1,0 +1,4 @@
+java_setup:
+  runs-on: ubuntu-latest
+  steps:
+    - run: mvn clean install

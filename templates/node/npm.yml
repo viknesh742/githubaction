@@ -1,0 +1,4 @@
+node_setup:
+  runs-on: ubuntu-latest
+  steps:
+    - run: npm install

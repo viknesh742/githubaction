@@ -1,0 +1,4 @@
+cpp_setup:
+  runs-on: ubuntu-latest
+  steps:
+    - run: make all

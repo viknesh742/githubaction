@@ -1,0 +1,4 @@
+lint:
+  runs-on: ubuntu-latest
+  steps:
+    - run: echo Running linter

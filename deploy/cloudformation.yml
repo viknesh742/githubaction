@@ -1,0 +1,4 @@
+cf_deploy:
+  runs-on: ubuntu-latest
+  steps:
+    - run: echo CloudFormation deploy

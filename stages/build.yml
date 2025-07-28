@@ -1,0 +1,4 @@
+build:
+  runs-on: ubuntu-latest
+  steps:
+    - run: echo Building app
